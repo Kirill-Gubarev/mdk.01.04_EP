@@ -6,8 +6,10 @@ import gui.button;
 
 public class mainClass {
     public static void main(String[] args) {
-		ter.terminal.init();
-		ter.terminal.setInstantInputMode(true);
+		terminal.init();
+		terminal.setInstantInputMode(true);
+		terminal.setCursorVisibility(false);
+		terminal.setAltBuf(true);
 
 		gui g = new gui(new button[]{
 			new button("button1", () -> System.out.println("delovoy pon")),
@@ -17,16 +19,18 @@ public class mainClass {
 			new button("button5")
 		});
 
-		for(int ch; (ch = ter.terminal.instantGetChar()) != 'q';){
+		g.print();
+		for(int ch = 0; (ch = ter.terminal.instantGetChar()) != 'q';){
 			if(ch == 'w')
 				g.addIndexButtons(-1);
 			else if(ch == 's')
 				g.addIndexButtons(1);
 			else if(ch == 10)
 				g.pressButton();
+
 			g.print();
 		}
 
-		ter.terminal.setInstantInputMode(false);
+		terminal.terminate();
     }
 }

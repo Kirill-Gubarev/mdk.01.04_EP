@@ -1,5 +1,7 @@
 package gui;
 
+import ter.terminal;
+
 public class gui {
 	//data
 	private button[] buttons;
@@ -23,6 +25,7 @@ public class gui {
 
 	//output buttons
 	public void print(){
+		terminal.setCursorPos(0, 0);
 		for(int i = 0; i < buttons.length; i++){
 			if(i == indexButtons)
 				printColoredText(buttons[i].getName(), "\033[7m");
