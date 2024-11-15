@@ -1,6 +1,7 @@
 package gui;
 
 import ter.terminal;
+import main.utils;
 
 public class gui {
 	//data
@@ -16,9 +17,6 @@ public class gui {
 		this.indexButtons = 0;
 	}
 
-	private void printColoredText(String str, String color){
-		System.out.println(color + str + "\033[0m");
-	}
 	public void pressButton(){
 		buttons[indexButtons].press();
 	}
@@ -28,9 +26,9 @@ public class gui {
 		terminal.setCursorPos(0, 0);
 		for(int i = 0; i < buttons.length; i++){
 			if(i == indexButtons)
-				printColoredText(buttons[i].getName(), "\033[7m");
+				utils.printColoredText(buttons[i].getName(), "\033[7m");
 			else
-				printColoredText(buttons[i].getName(), "\033[0m");
+				utils.printColoredText(buttons[i].getName(), "\033[0m");
 		}
 	}
 }

@@ -11,10 +11,17 @@ JAVA_INCLUDE = /usr/lib/jvm/java-1.17.0-openjdk-amd64/include
 
 SOURCES = \
 		  $(SRC)/main/mainClass.java\
+		  $(SRC)/main/utils.java\
 		  $(SRC)/ter/terminal.java\
 		  $(SRC)/gui/gui.java\
 		  $(SRC)/gui/button.java\
 		  $(SRC)/gui/buttonAction.java\
+		  $(SRC)/csv/csvReader.java\
+		  $(SRC)/app/app.java\
+		  $(SRC)/data/customer.java\
+		  $(SRC)/data/product.java\
+		  $(SRC)/data/sale.java\
+		  $(SRC)/data/dataUtils.java\
 
 all: classes libs
 
