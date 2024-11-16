@@ -44,10 +44,19 @@ static void restore(int s){
 #endif
 }
 
-void setCursorPos(int x, int y){
-	printf("\033[%d;%dH", y, x);
+void setCursorPos(Point p){
+	printf("\033[%d;%dH", p.y, p.x);
 	fflush(0);
 }
+Point getCursorPos(){
+	Point p;
+    printf("\033[6n");
+	scanf("\033[%d;%dR", &p.y, &p.x);
+	fflush(0);
+	return p;
+}
+int row, col;
+
 void __setCursorVisibility(uint8_t enable){
 	if(enable)
 		printf("\033[?25h");

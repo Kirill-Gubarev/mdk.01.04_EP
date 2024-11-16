@@ -1,0 +1,36 @@
+the sum of all sales: 68485.0RUB
+Product: lemon Sales: 32
+Product: orange Sales: 26
+Product: cherry Sales: 20
+Product: blueberry Sales: 19
+Product: papaya Sales: 19
+Product: grape Sales: 5
+Product: pear Sales: 5
+Product: strawberry Sales: 4
+Product: coconut Sales: 3
+Product: melon Sales: 2
+cost: 3000.0
+Customer: Misha Purchases: 5220.0 RUB
+Customer: Victorr Purchases: 5995.0 RUB
+Customer: Anna Purchases: 6110.0 RUB
+Customer: Olga Purchases: 3460.0 RUB
+Customer: Alexey Purchases: 7400.0 RUB
+Customer: Elena Purchases: 4720.0 RUB
+Customer: Igor Purchases: 3540.0 RUB
+Customer: Roman Purchases: 4500.0 RUB
+Customer: Tatiana Purchases: 3790.0 RUB
+Customer: Andrey Purchases: 3250.0 RUB
+Customer: Svetlana Purchases: 4950.0 RUB
+Customer: Kirill Purchases: 8490.0 RUB
+product: tomato
+Date: 11/09/2024, Quantity: 3
+Date: 11/12/2024, Quantity: 5
+Date: 11/12/2024, Quantity: 2
+Date: 11/01/2025, Quantity: 2
+Date: 11/03/2025, Quantity: 3
+product: carrot
+Date: 11/10/2024, Quantity: 2
+Date: 11/02/2025, Quantity: 5
+product: melon
+Date: 11/11/2024, Quantity: 1
+Date: 11/02/2025, Quantity: 1

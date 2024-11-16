@@ -7,8 +7,8 @@ public class mainClass {
     public static void main(String[] args) {
 		terminal.init();
 
-		app a = new app();
-		a.exec();
+		app.init();
+		app.exec();
 
 		terminal.terminate();
     }

@@ -8,7 +8,7 @@ public class sale{
 	public int id_product;
 	public int quantity;
 
-	public sale(int id, String date, String time, int id_cutomer, int id_product, int quantity){
+	public sale(int id, String date, String time, int id_customer, int id_product, int quantity){
 		this.id = id;
 		this.date = date;
 		this.time = time;

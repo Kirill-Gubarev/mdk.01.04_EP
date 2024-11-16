@@ -1,6 +1,7 @@
 package data;
 
-import main.utils;
+import ter.terminal;
+import ter.terio;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -16,14 +17,23 @@ public class dataUtils{
         }
         return null;
     }
-	public static List<customer> parseTableToCustomertList(List<List<String>> table){
+
+	public static customer findCustomerById(List<customer> customers, int id) {
+        for (customer p : customers) {
+            if (p.id == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+	public static List<customer> parseTableToCustomerList(List<List<String>> table){
 		List<customer> result = new ArrayList<customer>();
 		for(List<String> row : table){
 			try{
 				result.add(new customer(Integer.parseInt(row.get(0)), row.get(1)));
 			}
 			catch(Exception e){
-				utils.error("Parse error: " + e.getMessage());
+				terio.error("Parse error: " + e.getMessage());
 			}
 		}
 		return result;
@@ -35,13 +45,13 @@ public class dataUtils{
 				result.add(new product(Integer.parseInt(row.get(0)), row.get(1), Float.parseFloat(row.get(2))));
 			}
 			catch(Exception e){
-				utils.error("Parse error: " + e.getMessage());
+				terio.error("Parse error: " + e.getMessage());
 			}
 		return result;
 	}
 	public static List<sale> parseTableToSaleList(List<List<String>> table){
 		List<sale> result = new ArrayList<sale>();
-		for(List<String> row : table)
+		for(List<String> row : table){
 			try{
 				result.add(new sale(
 							Integer.parseInt(row.get(0)),
@@ -53,8 +63,9 @@ public class dataUtils{
 							));
 			}
 			catch(Exception e){
-				utils.error("Parse error: " + e.getMessage());
+				terio.error("Parse error: " + e.getMessage());
 			}
+		}
 		return result;
 	}
 }

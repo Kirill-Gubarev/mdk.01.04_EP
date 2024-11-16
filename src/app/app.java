@@ -1,84 +1,126 @@
 package app;
 
 import ter.terminal;
-import csv.csvReader;
-import main.utils;
+import ter.terio;
 
 import gui.gui;
 import gui.button;
 
-import data.customer;
-import data.product;
-import data.sale;
-import data.dataUtils;
-
-import java.util.List;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class app{
-	private static void myExit(){
-		terminal.terminate();
-		System.exit(0);
+	private static gui currentGui;
+
+	public static gui mainGui;
+	public static gui	sumGui;
+	public static gui mostLessPopularGui;
+	public static gui customersGui;
+	public static gui salesTrendsGui;
+
+	public static void setGui(gui g){
+		terio.clear();
+		currentGui = g;
+		currentGui.print();
 	}
-	private static void myPrint(){
-		List<List<String>> records = csvReader.parse("data/products.csv");
-		for (List<String> row : records) {
-			for (String str : row) {
-				System.out.println(str);
-			}
+	public static void deleteFile(String filePath) {
+		Path path = Paths.get(filePath);
+
+		try {
+		  Files.delete(path);
+		} catch (IOException e) {
 		}
-	}
-	public app(){
+	  }
+	public static void appendToFile(String filePath, String line) {
+		Path path = Paths.get(filePath);
+
+		try {
+		  Files.writeString(path, line + System.lineSeparator(), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch (IOException e) {
+		  System.err.println("file writing error: " + e.getMessage());
+		}
+	  }
+
+	public static void init(){
 		terminal.setInstantInputMode(true);
 		terminal.setCursorVisibility(false);
 		terminal.setAltBuf(true);
-	}
-	private float sumSales(){
-		float result = 0;
 
-		List<sale> sales = dataUtils.parseTableToSaleList(csvReader.parse("data/sales.csv"));
-		List<product> products = dataUtils.parseTableToProductList(csvReader.parse("data/products.csv"));
+		deleteFile("data/logs.txt");
 
-		int length = sales.size();
-		for(int i = 0; i < length; i++){
-			int id = sales.get(i).id_product - 1;
-			product p = dataUtils.findProductById(products, id);
-			if(p != null)
-				result += sales.get(i).quantity * p.price;
-			else
-				utils.error("Searching product error, id:" + String.valueOf(id));
-		}
-
-		return result;
-	}
-	public void exec(){
-		gui g = new gui(new button[]{
+		mainGui = new gui(new button[]{
 			new button("the sum of all sales.", () -> {
-				utils.clear();
-				System.out.println("the sum of all sales: \033[33m" + String.valueOf(sumSales()) + "\033[0m");
-						}),
-			new button("button2", () -> {
-				utils.clear();
-				myPrint();
+				setGui(sumGui);
+				appUtils.theSumOfAllSales();
 			}),
-			new button("button3"),
-			new button("button4"),
-			new button("exit", () -> {
-				utils.clear();
-				myExit();
+			new button("the most and less popular products", () -> {
+				setGui(mostLessPopularGui);
+				appUtils.theMostAndLessPopularProducts();
+			}),
+			new button("cusomers", () -> {
+				setGui(customersGui);
+				appUtils.customers();
+			}),
+			new button("sales trends", () -> {
+				setGui(salesTrendsGui);
+			}),
+			new button("exit", "\033[31m", () -> {
+				terio.clear();
+				terminal.hExit();
 			})
 		});
 
-		g.print();
+		sumGui = new gui(new button[]{
+			new button("back", "\033[32m", () -> {
+				terio.clear();
+				setGui(mainGui);
+			})
+		});
+
+		mostLessPopularGui = new gui(new button[]{
+			new button("back", "\033[32m", () -> {
+				terio.clear();
+				setGui(mainGui);
+			})
+		});
+
+		customersGui = new gui(new button[]{
+			new button("back", "\033[32m", () -> {
+				terio.clear();
+				setGui(mainGui);
+			})
+		});
+
+		salesTrendsGui = new gui(new button[]{
+			new button("back", "\033[32m", () -> {
+				appUtils.productId = 0;
+				app.salesTrendsGui.get(1).name = "The product is not selected";
+				app.salesTrendsGui.get(1).color = "\033[33m";
+				terio.clear();
+				setGui(mainGui);
+			}),
+			new button("The product is not selected", "\033[33m", () -> {
+				appUtils.salesTrends();
+			})
+		});
+
+		currentGui = mainGui;
+	}
+	public static void exec(){
+		currentGui.print();
 		for(int ch = 0; (ch = ter.terminal.instantGetChar()) != 'q';){
 			if(ch == 'w')
-				g.addIndexButtons(-1);
+				currentGui.addIndexButtons(-1);
 			else if(ch == 's')
-				g.addIndexButtons(1);
+				currentGui.addIndexButtons(1);
 			else if(ch == 10)
-				g.pressButton();
-			if (ch != 10)
-				g.print();
+				currentGui.pressButton();
+
+			currentGui.print();
 		}
 	}
 }

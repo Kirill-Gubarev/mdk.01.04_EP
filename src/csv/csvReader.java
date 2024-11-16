@@ -1,6 +1,8 @@
 package csv;
 
-import main.utils;
+import ter.terminal;
+import ter.terio;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.List;
@@ -21,7 +23,7 @@ public class csvReader {
             }
 		}
 		catch (Exception e) {
-			utils.error("Error reading the file: " + e.getMessage());
+			terio.error("Error reading the file: " + e.getMessage());
 		}
 
 		return records;
